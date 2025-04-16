@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ZahniHero 刷牙记录</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            background: #f9f9f9;
+        }
+
+        h1 {
+            color: #3c3c3c;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ZahniHero 刷牙记录</h1>
+    <table id="log-table">
+        <thead>
+            <tr>
+                <th>时间</th>
+                <th>时长（秒）</th>
+                <th>设备</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        const supabaseUrl = "https://timhflcxsmjlyqjnymrm.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpbWhmbGN4c21qbHlxam55bXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MjU2MTksImV4cCI6MjA2MDQwMTYxOX0.cbZUGdOZrQ14mVf5685U6gFCe7AnX-nGHU4Joxa48Z8";
+
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        async function fetchData() {
+            const { data, error } = await supabase
+                .from("brush_records")
+                .select("*")
+                .order("timestamp", { ascending: false });
+
+            const tbody = document.querySelector("#log-table tbody");
+            tbody.innerHTML = "";
+
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="3">⚠️ 错误：${error.message}</td></tr>`;
+                return;
+            }
+
+            data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+          <td>${new Date(row.timestamp).toLocaleString()}</td>
+          <td>${row.duration}</td>
+          <td>${row.device}</td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>
