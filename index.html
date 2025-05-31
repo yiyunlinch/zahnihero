@@ -100,8 +100,10 @@
         .select("*")
         .order("timestamp", { ascending: false });
 
+      console.log("🟢 Supabase 返回数据：", data);
+
       if (error) {
-        console.error("Error fetching data:", error.message);
+        console.error("❌ Supabase 请求失败:", error.message);
         status.textContent = "❌ Failed to load data.";
         return;
       }
@@ -118,6 +120,8 @@
       }));
 
       status.textContent = `✅ Loaded ${allData.length} records.`;
+
+      // 自动更新图表（测试时默认不筛选时间）
       updateChart(allData);
     }
 
@@ -139,9 +143,17 @@
           startDate = new Date();
           startDate.setMonth(startDate.getMonth() - 3);
           break;
+        case "all":
+        default:
+          startDate = new Date(0);
       }
 
-      const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
+      const filtered = allData.filter(item => {
+        const localTime = new Date(item.timestamp);
+        console.log(`⏱ 记录时间: ${localTime.toLocaleString()} 是否保留: ${localTime >= startDate}`);
+        return localTime >= startDate;
+      });
+
       updateChart(filtered);
       document.getElementById("status").textContent = `Showing ${filtered.length} records.`;
     }
