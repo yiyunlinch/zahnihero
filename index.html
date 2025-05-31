@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>ZahniHero History</title>
+  <title>ZähniHero Verlauf</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -10,7 +10,7 @@
       font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
       padding: 2rem;
-      background-color: #2c003e; /* 深紫色背景 */
+      background-color: #2c003e;
       color: white;
       display: flex;
       flex-direction: column;
@@ -21,7 +21,7 @@
       text-align: center;
       font-size: 4rem;
       font-weight: bold;
-      background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+      background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 2rem;
@@ -51,7 +51,7 @@
     }
 
     canvas {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.08); /* 少许白色底 */
       border-radius: 10px;
       padding: 1rem;
       display: block;
@@ -77,18 +77,18 @@
 </head>
 
 <body>
-  <h1>ZahniHero History</h1>
+  <h1>ZähniHero Verlauf</h1>
 
   <div class="filters">
-    <button onclick="filterData('today')">Today</button>
-    <button onclick="filterData('week')">Last 7 Days</button>
-    <button onclick="filterData('month')">Last Month</button>
-    <button onclick="filterData('3months')">Last 3 Months</button>
-    <button onclick="filterData('all')">All</button>
+    <button onclick="filterData('today')">Heute</button>
+    <button onclick="filterData('week')">Letzte 7 Tage</button>
+    <button onclick="filterData('month')">Letzter Monat</button>
+    <button onclick="filterData('3months')">Letzte 3 Monate</button>
+    <button onclick="filterData('all')">Alle</button>
   </div>
 
   <canvas id="brushChart" width="800" height="400"></canvas>
-  <div class="status" id="status">Loading...</div>
+  <div class="status" id="status">Lade Daten...</div>
 
   <footer>© copyright by Yiyun Lin</footer>
 
@@ -105,35 +105,38 @@
       data: {
         labels: [],
         datasets: [{
-          label: "Duration (sec)",
+          label: "Dauer (Sekunden)",
           data: [],
-          backgroundColor: "rgba(173, 216, 230, 0.5)" // 更淡的蓝色
+          backgroundColor: "rgba(173, 216, 230, 0.5)" // 更淡蓝色
         }]
       },
       options: {
         plugins: {
           legend: {
             labels: {
-              color: "white"
+              color: "white",
+              font: { size: 16 } // 放大一倍
             }
           }
         },
         scales: {
           x: {
-            ticks: { color: "white" },
+            ticks: { color: "white", font: { size: 14 } },
             title: {
               display: true,
-              text: "Date & Time",
-              color: "white"
+              text: "Datum & Uhrzeit",
+              color: "white",
+              font: { size: 16 }
             }
           },
           y: {
             beginAtZero: true,
-            ticks: { color: "white" },
+            ticks: { color: "white", font: { size: 14 } },
             title: {
               display: true,
-              text: "Duration (sec)",
-              color: "white"
+              text: "Dauer (Sekunden)",
+              color: "white",
+              font: { size: 16 }
             }
           }
         }
@@ -142,7 +145,7 @@
 
     async function fetchData() {
       const status = document.getElementById("status");
-      status.textContent = "Loading data...";
+      status.textContent = "Lade Daten...";
 
       const { data, error } = await supabase
         .from("brush_records")
@@ -150,8 +153,8 @@
         .order("timestamp", { ascending: false });
 
       if (error) {
-        console.error("❌ Supabase 请求失败:", error.message);
-        status.textContent = "❌ Failed to load data.";
+        console.error("❌ Supabase Fehler:", error.message);
+        status.textContent = "Fehler beim Laden.";
         return;
       }
 
@@ -161,7 +164,7 @@
         device: row.device
       }));
 
-      status.textContent = `Loaded ${allData.length} records.`;
+      status.textContent = `${allData.length} Einträge geladen.`;
       updateChart(allData);
     }
 
@@ -187,7 +190,7 @@
 
       const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
       updateChart(filtered);
-      document.getElementById("status").textContent = `Loaded ${filtered.length} records.`;
+      document.getElementById("status").textContent = `${filtered.length} Einträge angezeigt.`;
     }
 
     function updateChart(data) {
