@@ -1,155 +1,165 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ZahniHero History</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 2rem;
-            background: #f9f9f9;
-        }
+  <meta charset="UTF-8" />
+  <title>ZahniHero History</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
 
-        h1 {
-            color: #3c3c3c;
-            margin-bottom: 1rem;
-        }
+    h1 {
+      color: #3c3c3c;
+    }
 
-        canvas {
-            background: white;
-            border: 1px solid #ccc;
-            padding: 1rem;
-        }
+    canvas {
+      background: white;
+      border: 1px solid #ccc;
+      padding: 1rem;
+    }
 
-        .filters {
-            margin-bottom: 1rem;
-        }
+    .filters {
+      margin: 1rem 0;
+    }
 
-        .filters button {
-            margin-right: 0.5rem;
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-    </style>
+    .filters button {
+      margin-right: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .status {
+      margin: 0.5rem 0;
+      font-style: italic;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>ZahniHero History</h1>
+  <h1>ZahniHero History</h1>
 
-    <!-- 筛选按钮 -->
-    <div class="filters">
-        <button onclick="filterData('today')">Today</button>
-        <button onclick="filterData('week')">Last 7 Days</button>
-        <button onclick="filterData('month')">Last Month</button>
-        <button onclick="filterData('3months')">Last 3 Months</button>
-        <button onclick="filterData('all')">All</button>
-    </div>
+  <div class="filters">
+    <button onclick="filterData('today')">Today</button>
+    <button onclick="filterData('week')">Last 7 Days</button>
+    <button onclick="filterData('month')">Last Month</button>
+    <button onclick="filterData('3months')">Last 3 Months</button>
+    <button onclick="filterData('all')">All</button>
+  </div>
 
-    <!-- 图表 -->
-    <canvas id="brushChart" width="800" height="400"></canvas>
+  <div class="status" id="status">Loading...</div>
+  <canvas id="brushChart" width="800" height="400"></canvas>
 
-    <script>
-        const supabaseUrl = "https://timhflcxsmjlyqjnymrm.supabase.co";
-        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpbWhmbGN4c21qbHlxam55bXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MjU2MTksImV4cCI6MjA2MDQwMTYxOX0.cbZUGdOZrQ14mVf5685U6gFCe7AnX-nGHU4Joxa48Z8";
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+  <script>
+    const supabaseUrl = "https://timhflcxsmjlyqjnymrm.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpbWhmbGN4c21qbHlxam55bXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MjU2MTksImV4cCI6MjA2MDQwMTYxOX0.cbZUGdOZrQ14mVf5685U6gFCe7AnX-nGHU4Joxa48Z8";
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-        let allData = [];
+    let allData = [];
 
-        const ctx = document.getElementById('brushChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Duration (sec)',
-                    data: [],
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        ticks: {
-                            callback: function (val, index) {
-                                const date = new Date(this.getLabelForValue(val));
-                                return date.toLocaleDateString();
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Duration (sec)'
-                        }
-                    }
-                }
+    const ctx = document.getElementById("brushChart").getContext("2d");
+    const chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [],
+        datasets: [{
+          label: "Duration (sec)",
+          data: [],
+          backgroundColor: "rgba(54, 162, 235, 0.6)"
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "Date & Time"
             }
-        });
-
-        async function fetchData() {
-            const { data, error } = await supabase
-                .from("brush_records")
-                .select("*")
-                .order("timestamp", { ascending: false });
-
-            if (error) {
-                console.error("⚠️ Error fetching data:", error.message);
-                return;
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Duration (sec)"
             }
-
-            allData = data.map(row => ({
-                timestamp: row.timestamp,
-                duration: row.duration,
-                device: row.device
-            }));
-
-            updateChart(allData);
+          }
         }
+      }
+    });
 
-        function filterData(range) {
-            const now = new Date();
-            let startDate = new Date(0);
-            switch (range) {
-                case 'today':
-                    startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                    break;
-                case 'week':
-                    startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-                    break;
-                case 'month':
-                    startDate = new Date();
-                    startDate.setMonth(startDate.getMonth() - 1);
-                    break;
-                case '3months':
-                    startDate = new Date();
-                    startDate.setMonth(startDate.getMonth() - 3);
-                    break;
-                case 'all':
-                default:
-                    startDate = new Date(0);
-            }
+    async function fetchData() {
+      const status = document.getElementById("status");
+      status.textContent = "Loading data...";
 
-            const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
-            updateChart(filtered);
-        }
+      const { data, error } = await supabase
+        .from("brush_records")
+        .select("*")
+        .order("timestamp", { ascending: false });
 
-        function updateChart(data) {
-            chart.data.labels = data.map(entry => entry.timestamp);
-            chart.data.datasets[0].data = data.map(entry => entry.duration);
-            chart.update();
-        }
+      if (error) {
+        console.error("Error fetching data:", error.message);
+        status.textContent = "❌ Failed to load data.";
+        return;
+      }
 
-        fetchData();
-    </script>
+      if (!data || data.length === 0) {
+        status.textContent = "No data available.";
+        return;
+      }
+
+      allData = data.map(row => ({
+        timestamp: row.timestamp,
+        duration: row.duration,
+        device: row.device
+      }));
+
+      status.textContent = `✅ Loaded ${allData.length} records.`;
+      updateChart(allData);
+    }
+
+    function filterData(range) {
+      const now = new Date();
+      let startDate = new Date(0);
+      switch (range) {
+        case "today":
+          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+          break;
+        case "week":
+          startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          break;
+        case "month":
+          startDate = new Date();
+          startDate.setMonth(startDate.getMonth() - 1);
+          break;
+        case "3months":
+          startDate = new Date();
+          startDate.setMonth(startDate.getMonth() - 3);
+          break;
+      }
+
+      const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
+      updateChart(filtered);
+      document.getElementById("status").textContent = `Showing ${filtered.length} records.`;
+    }
+
+    function updateChart(data) {
+      chart.data.labels = data.map(entry =>
+        new Date(entry.timestamp).toLocaleString("de-CH", {
+          day: "2-digit",
+          month: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      );
+      chart.data.datasets[0].data = data.map(entry => entry.duration);
+      chart.update();
+    }
+
+    fetchData();
+  </script>
 </body>
-
 </html>
