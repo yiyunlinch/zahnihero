@@ -7,35 +7,58 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
       padding: 2rem;
-      background: #f9f9f9;
+      background-color: #2c003e; /* 深紫色背景 */
+      color: white;
     }
 
     h1 {
-      color: #3c3c3c;
+      text-align: center;
+      font-size: 4rem; /* 放大一倍 */
+      font-weight: bold;
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .filters button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filters button:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .status {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-style: italic;
     }
 
     canvas {
       background: white;
-      border: 1px solid #ccc;
+      border-radius: 10px;
       padding: 1rem;
-    }
-
-    .filters {
-      margin: 1rem 0;
-    }
-
-    .filters button {
-      margin-right: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .status {
-      margin: 0.5rem 0;
-      font-style: italic;
+      display: block;
+      margin: 0 auto;
     }
   </style>
 </head>
@@ -75,16 +98,20 @@
       options: {
         scales: {
           x: {
+            ticks: { color: "#333" },
             title: {
               display: true,
-              text: "Date & Time"
+              text: "Date & Time",
+              color: "#333"
             }
           },
           y: {
             beginAtZero: true,
+            ticks: { color: "#333" },
             title: {
               display: true,
-              text: "Duration (sec)"
+              text: "Duration (sec)",
+              color: "#333"
             }
           }
         }
@@ -100,16 +127,9 @@
         .select("*")
         .order("timestamp", { ascending: false });
 
-      console.log("🟢 Supabase 返回数据：", data);
-
       if (error) {
         console.error("❌ Supabase 请求失败:", error.message);
         status.textContent = "❌ Failed to load data.";
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        status.textContent = "No data available.";
         return;
       }
 
@@ -120,8 +140,6 @@
       }));
 
       status.textContent = `✅ Loaded ${allData.length} records.`;
-
-      // 自动更新图表（测试时默认不筛选时间）
       updateChart(allData);
     }
 
@@ -143,17 +161,9 @@
           startDate = new Date();
           startDate.setMonth(startDate.getMonth() - 3);
           break;
-        case "all":
-        default:
-          startDate = new Date(0);
       }
 
-      const filtered = allData.filter(item => {
-        const localTime = new Date(item.timestamp);
-        console.log(`⏱ 记录时间: ${localTime.toLocaleString()} 是否保留: ${localTime >= startDate}`);
-        return localTime >= startDate;
-      });
-
+      const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
       updateChart(filtered);
       document.getElementById("status").textContent = `Showing ${filtered.length} records.`;
     }
