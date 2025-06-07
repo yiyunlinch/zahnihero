@@ -1,4 +1,4 @@
---
+
 
 ## Intro
 
@@ -40,11 +40,11 @@ The more advanced idea is to make the toothbrush interact with kids through stor
 
 The video is presented in 3 parts:
 
-Part 1: Touch sensor with LED light
+Part 1: Viberation sensor with LED light
 
 [![Watch ZahniHero Video](https://img.youtube.com/vi/NR-hUWGv0vA/0.jpg)](https://www.youtube.com/watch?v=NR-hUWGv0vA)
 
-Part 2: Sound sensor with data transmission
+Part 2: INMP441 microphone with data transmission
 
 [![Watch ZahniHero Part 2](https://img.youtube.com/vi/-_n2oewAVD4/0.jpg)](https://youtu.be/-_n2oewAVD4)
 
@@ -61,7 +61,7 @@ However, due to the lack of 3D printing tools and a broken LED pin during assemb
 
 ## Approach
 
-I combined hardware (ESP32-C6, I2S sound sensors, and LEDs) with a Supabase-powered database and a simple web interface.
+I combined hardware (ESP32-C6, INMP441 microphone, and LEDs) with a Supabase-powered database and a simple web interface.
 The development focused on delivering clear feedback, minimizing distractions, and providing parental insight.
 
 
@@ -69,7 +69,7 @@ The development focused on delivering clear feedback, minimizing distractions, a
 
 Originally, I planned to use the SW-420 vibration sensor (first row, left). However, during testing, the sensor couldn’t reliably distinguish between tooth brushing and non-brushing activity — the output values ranged unpredictably from 100 to 1000.
 
-So I tried two other vibration sensors: the ADXL335 (first row, middle) and a piezoelectric sensor (first row, right), as well as the I2S sound sensor (second row). Among the two vibration sensors, the ADXL335 gave relatively satisfactory results. Although the values were still a bit unstable, the difference between brushing and not brushing was noticeably larger. Tested picture below.
+So I tried two other vibration sensors: the ADXL335 (first row, middle) and a piezoelectric sensor (first row, right), as well as the INMP441 microphone (second row). Among the two vibration sensors, the ADXL335 gave relatively satisfactory results. Although the values were still a bit unstable, the difference between brushing and not brushing was noticeably larger. Tested picture below.
 
 ![ZahniHero Prototype](images/ADXL335.jpg)
 
@@ -97,15 +97,15 @@ This includes configuration, wiring, and key challenges I encountered.
 - Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBrushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSound is sampled every 100 milliseconds.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound is sampled every 100 milliseconds.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEvery second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TThis one-second brushing status is saved into a 5-second rolling window.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This one-second brushing status is saved into a 5-second rolling window.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIf at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
 
 
 ### Debugging
@@ -172,8 +172,8 @@ Parents appreciate clear and simple visual summaries.
 
 ## Known Bugs
 
--The sensitivity of the sensors is relatively low, and the brushing detection algorithm still needs improvement.
--A final test could not be conducted with both the sound sensor and LED securely mounted on the toothbrush and protected with a waterproof casing.
+- The sensitivity of the sensors is relatively low, and the brushing detection algorithm still needs improvement.
+- A final test could not be conducted with both the sound sensor and LED securely mounted on the toothbrush and protected with a waterproof casing.
   
 
 ---
