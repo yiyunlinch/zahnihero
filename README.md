@@ -22,9 +22,8 @@ ZahniHero – for better brushing routines, powered by play and supported by dat
 - [Technology](#technology)  
 - [UX](#ux)  
 - [Known Bugs](#known-bugs)  
-- [Fun Facts](#fun-facts)  
 - [Task Distribution](#task-distribution)  
-- [ZahniHero in Action](#zahnihero-in-action)  
+
 
 ---
 
@@ -84,9 +83,11 @@ However, in discussion with Jan, he preferred that I test the I2S sound sensor �
 
 ## Challenges and Lessons Learned
 
-I had difficulties setting up the I2S sound sensor with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
+- I had difficulties setting up the I2S sound sensor with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
+[Dieses YouTube-Video war hilfreich bei der LCD-Verdrahtung](https://youtu.be/m8LwPNXqK9o)
 
-Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
+
+- Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
 Brushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
@@ -99,7 +100,7 @@ This one-second brushing status is saved into a 5-second rolling window.
 
 If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
 
-During the process of uploading toothbrush data to Supabase and displaying it on a website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
+- During the process of uploading toothbrush data to Supabase and displaying it on a website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
 ---
 
@@ -135,42 +136,40 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 
 ## UX
 
-We tested multiple versions with parents and kids aged 2–6.  
-Key feedback:
-- Kids enjoy color changes more than sounds  
-- Simplicity > complexity  
-- Parents appreciate visual summaries
+### UX from the Toothbrush
+
+The UX design was informed by insights from user interviews.  
+🔗 [Figma link to interview results](https://www.figma.com/design/wadJ1YZ3SQiw23xoVoVQCV/AppKonzeption?node-id=0-1&t=GbyrRmA4R8Lrk3HM-1)
+
+
+![ZahniHero Prototype](images/interview.jpg)
+
+As a parent myself, I understand that kids respond better to lights and color changes.  
+LED feedback is more engaging and motivating for them than a voice simply saying "one minute", "two minutes", or "finished".
+
+---
+
+### UX from the Web Interface
+
+![ZahniHero Prototype](images/final.jpg)
+
+- Parents appreciate clear and simple visual summaries.
+- The web interface is designed to be intuitive and easy to understand.
+
+  
 
 ---
 
 ## Known Bugs
 
-- Some sensors may miss soft brushing  
-- OTA fails occasionally when WiFi is weak  
-- No battery level detection yet
-
----
-
-## Fun Facts
-
-- "Zahni" means "tooth" in Swiss child language  
-- The rainbow sequence was chosen by a 5-year-old tester  
-- Our test family brushed 40% longer with ZahniHero
+-The sensitivity of the sensors is relatively low, and the brushing detection algorithm still needs improvement.
+-A final test could not be conducted with both the sound sensor and LED securely mounted on the toothbrush and protected with a waterproof casing.
+  
 
 ---
 
 ## Task Distribution
+The entire project was independently developed and implemented by Yiyun Lin.
 
-| Name        | Responsibility           |
-|-------------|--------------------------|
-| Yiyun Lin   | Hardware, Backend, Web   |
-| ...         | Testing, UX Interviews   |
 
----
-
-## ZahniHero in Action
-
-![ZahniHero Prototype](images/zahnihero-prototype.jpg)
-
----
 
