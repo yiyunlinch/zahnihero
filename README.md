@@ -39,10 +39,11 @@ The more advanced idea is to make the toothbrush interact with kids through stor
 The video is presented in two parts:
 
 Part 1: Touch sensor with LED light
-![ZahniHero Prototype](video/led.mp4)
+[![ZahniHero Demo]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID](https://youtu.be/NR-hUWGv0vA))
+
 
 Part 2: Sound sensor with data transmission
-![ZahniHero Prototype](video/sound.mp4)
+[![ZahniHero Demo]([[https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID](https://youtu.be/NR-hUWGv0vA)](https://youtu.be/RpQ5_hBeL5Y))
 
 Unfortunately, I originally planned a third part — a demonstration of the sound sensor and LED integrated directly into the toothbrush. However, due to the lack of 3D printing tools and a broken LED pin during assembly, I wasn’t able to complete this final version.
 
