@@ -53,7 +53,7 @@ Part 3: Data is wireless uploaded to Supabase in real time
 
 
 Unfortunately, I originally planned a fourth Video— a demonstration of the sound sensor and LED integrated directly into the toothbrush. 
-However, due to the lack of 3D printing tools and a broken LED pin during assembly, I wasn’t able to complete this final version.
+However, due to the lack of 3D printing tools and a broken LED pin during assembly, I wasn’t able to complete the 4th video.
 
 
 ---
@@ -84,7 +84,13 @@ However, in discussion with Jan, he preferred that I test the I2S sound sensor �
 ## Challenges and Lessons Learned
 
 - I had difficulties setting up the I2S sound sensor with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
-[Dieses YouTube-Video war hilfreich bei der LCD-Verdrahtung](https://youtu.be/m8LwPNXqK9o)
+  
+### Umsetzung von I2S mit ESP32-C6
+During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
+This includes configuration, wiring, and key challenges I encountered.
+
+📎 [GitHub Repository – ESP32-C6 with INMP441](https://github.com/yiyunlinch/ESP32-INMP441)
+
 
 
 - Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
@@ -153,10 +159,8 @@ LED feedback is more engaging and motivating for them than a voice simply saying
 
 ![ZahniHero Prototype](images/final.jpg)
 
-- Parents appreciate clear and simple visual summaries.
-- The web interface is designed to be intuitive and easy to understand.
+Parents appreciate clear and simple visual summaries.
 
-  
 
 ---
 
