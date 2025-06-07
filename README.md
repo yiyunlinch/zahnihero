@@ -34,6 +34,7 @@ I wanted to make toothbrushing more fun and effective for my daughter — and fo
 ZahniHero replaces tablets and cartoons with playful light signals, encouraging longer and healthier brushing.
 The more advanced idea is to make the toothbrush interact with kids through stories, music, and riddles.
 
+
 ---
 ## Short Project Video
 
@@ -96,20 +97,20 @@ This includes configuration, wiring, and key challenges I encountered.
 - Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;TBrushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TBrushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
 
-&nbsp;&nbsp;&nbsp;&nbsp;TSound is sampled every 100 milliseconds.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TSound is sampled every 100 milliseconds.
 
-&nbsp;&nbsp;&nbsp;&nbsp;TEvery second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEvery second, the system checks if there were at least 3 active readings (i.e., brushing activity).
 
-&nbsp;&nbsp;&nbsp;&nbsp;TThis one-second brushing status is saved into a 5-second rolling window.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TThis one-second brushing status is saved into a 5-second rolling window.
 
-&nbsp;&nbsp;&nbsp;&nbsp;TIf at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIf at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
 
 
 ### Debugging
 
-- During the process of uploading toothbrush data to Supabase and displaying it on a website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
+During the process of uploading toothbrush data to Supabase and displaying it on the website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
 ---
 
@@ -153,8 +154,10 @@ The UX design was informed by insights from user interviews.
 
 ![ZahniHero Prototype](images/interview.jpg)
 
-As a parent myself, I understand that kids respond better to lights and color changes.  
-LED feedback is more engaging and motivating for them than a voice simply saying "one minute", "two minutes", or "finished".
+As a parent myself and based on user interviews, I understand that children respond better to lights and color changes.  
+LED feedback is more engaging and motivating for them than a voice simply saying "one minute," "two minutes," or "finished."
+In the future, another model could focus on music, stories, and riddles. Additionally, more detailed data—such as brushing areas—could be collected for improved feedback.
+
 
 ---
 
