@@ -36,19 +36,21 @@ The more advanced idea is to make the toothbrush interact with kids through stor
 ---
 ## Short Project Video
 
-The video is presented in two parts:
+The video is presented in 3 parts:
 
 Part 1: Touch sensor with LED light
-[![ZahniHero Demo]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID](https://youtu.be/NR-hUWGv0vA))
 
+[![Watch ZahniHero Video](https://img.youtube.com/vi/NR-hUWGv0vA/0.jpg)](https://www.youtube.com/watch?v=NR-hUWGv0vA)
 
 Part 2: Sound sensor with data transmission
-[![ZahniHero Demo]([[https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID](https://youtu.be/NR-hUWGv0vA)](https://youtu.be/RpQ5_hBeL5Y))
+[![Watch ZahniHero Part 2](https://img.youtube.com/vi/-_n2oewAVD4/0.jpg)](https://youtu.be/-_n2oewAVD4)
 
-Unfortunately, I originally planned a third part — a demonstration of the sound sensor and LED integrated directly into the toothbrush. However, due to the lack of 3D printing tools and a broken LED pin during assembly, I wasn’t able to complete this final version.
+Part 3: Data is uploaded to Supabase in real time
+[![Watch ZahniHero Part 3](https://img.youtube.com/vi/d6UzlYEBhSQ/0.jpg)](https://www.youtube.com/watch?v=d6UzlYEBhSQ)
 
-[Watch the full video on YouTube (Parts 1 & 2)](https://www.youtube.com/yourvideo)
 
+Unfortunately, I originally planned a fourth Video— a demonstration of the sound sensor and LED integrated directly into the toothbrush. 
+However, due to the lack of 3D printing tools and a broken LED pin during assembly, I wasn’t able to complete this final version.
 
 
 ---
