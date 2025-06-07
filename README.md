@@ -10,6 +10,9 @@ ZahniHero – for better brushing routines, powered by play and supported by dat
 
 ![ZahniHero Prototype](images/final.jpg)
 
+Final Product visual reference
+
+![ZahniHero Prototype](images/reference.png)
 
 --
 
@@ -118,7 +121,7 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 
 ### Physisch
 - ESP32 Dev Modul  
-- I2S soundsensor
+- INMP441 microphone
 - LED 
 - SW-420 vibrationsensor (für Tests) 
 - ADXL335 vibrationsensor (für Tests)  
