@@ -1,6 +1,6 @@
 --
 
-##Intro
+## Intro
 
 ZahniHero is an interactive toothbrushing assistant designed specifically for children, to motivate them to brush their teeth for up to 3 minutes. As soon as brushing begins, ZahniHero uses sound or vibration sensors to detect activity and activates colorful LED animations: blue after 1 minute, flashing white after 2 minutes, and a rainbow light after 3 minutes. The goal is to make brushing fun and to encourage healthy, consistent habits.
 
@@ -83,28 +83,31 @@ However, in discussion with Jan, he preferred that I test the I2S sound sensor �
 
 ## Challenges and Lessons Learned
 
+### Umsetzung von I2S mit ESP32-C6
 - I had difficulties setting up the I2S sound sensor with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
   
-### Umsetzung von I2S mit ESP32-C6
 During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
 This includes configuration, wiring, and key challenges I encountered.
 
 📎 [GitHub Repository – ESP32-C6 with INMP441](https://github.com/yiyunlinch/ESP32-INMP441)
 
 
-
+### Brushing logic
 - Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-Brushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
+&nbsp;&nbsp;&nbsp;&nbsp;TBrushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
 
-Sound is sampled every 100 milliseconds.
+&nbsp;&nbsp;&nbsp;&nbsp;TSound is sampled every 100 milliseconds.
 
-Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+&nbsp;&nbsp;&nbsp;&nbsp;TEvery second, the system checks if there were at least 3 active readings (i.e., brushing activity).
 
-This one-second brushing status is saved into a 5-second rolling window.
+&nbsp;&nbsp;&nbsp;&nbsp;TThis one-second brushing status is saved into a 5-second rolling window.
 
-If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+&nbsp;&nbsp;&nbsp;&nbsp;TIf at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+
+
+### Debugging
 
 - During the process of uploading toothbrush data to Supabase and displaying it on a website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
