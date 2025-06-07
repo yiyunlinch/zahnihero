@@ -5,3 +5,5 @@ ZahniHero is an interactive toothbrushing assistant designed specifically for ch
 In addition to the physical device, the companion website https://zahnihero.yiyun.me/ offers a digital extension. Here, parents and dentists can view brushing history and duration through visual dashboards, providing additional guidance. The site is connected to our Supabase database, which collects real-time brushing data from each device.
 
 ZahniHero – for better brushing routines, powered by play and supported by data — without screens. Unlike other products on the market that rely on an additional tablet to entertain children during brushing, ZahniHero keeps the experience simple, focused, and engaging.
+
+![ZahniHero Prototype](images/zahnihero-final.jpg)
