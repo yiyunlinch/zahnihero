@@ -46,7 +46,7 @@ Part 2: Sound sensor with data transmission
 
 [![Watch ZahniHero Part 2](https://img.youtube.com/vi/-_n2oewAVD4/0.jpg)](https://youtu.be/-_n2oewAVD4)
 
-Part 3: Data is uploaded to Supabase in real time
+Part 3: Data is wireless uploaded to Supabase in real time
 
 [![Watch ZahniHero Part 3](https://img.youtube.com/vi/d6UzlYEBhSQ/0.jpg)](https://www.youtube.com/watch?v=d6UzlYEBhSQ)
 
@@ -59,8 +59,27 @@ However, due to the lack of 3D printing tools and a broken LED pin during assemb
 
 ## Approach
 
-We combined hardware (ESP32, vibration/sound sensors, LED) with a Supabase-powered database and a simple web interface.  
-The development focused on clear feedback, minimal distractions, and parental insight.
+I combined hardware (ESP32, I2S sound sensors, and LEDs) with a Supabase-powered database and a simple web interface.
+The development focused on delivering clear feedback, minimizing distractions, and providing parental insight.
+
+
+![ZahniHero Prototype](images/all.jpg)
+
+Originally, I planned to use the SW-420 vibration sensor (first row, left). However, during testing, the sensor couldn’t reliably distinguish between tooth brushing and non-brushing activity — the output values ranged unpredictably from 100 to 1000.
+
+So I tried two other vibration sensors: the ADXL335 (first row, middle) and a piezoelectric sensor (first row, right), as well as the I2S sound sensor (second row). Among them, the ADXL335 gave relatively satisfactory results. Although the values were still a bit unstable, the difference between brushing and not brushing was noticeably larger.
+
+![ZahniHero Prototype](images/ADXL335.jpg)
+
+However, in discussion with Jan, he preferred that I test the I2S sound sensor — which I eventually chose to use in the final version.
+
+![ZahniHero Prototype](images/final.jpg)
+
+
+
+
+
+
 
 ---
 
