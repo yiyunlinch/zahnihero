@@ -43,9 +43,11 @@ Part 1: Touch sensor with LED light
 [![Watch ZahniHero Video](https://img.youtube.com/vi/NR-hUWGv0vA/0.jpg)](https://www.youtube.com/watch?v=NR-hUWGv0vA)
 
 Part 2: Sound sensor with data transmission
+
 [![Watch ZahniHero Part 2](https://img.youtube.com/vi/-_n2oewAVD4/0.jpg)](https://youtu.be/-_n2oewAVD4)
 
 Part 3: Data is uploaded to Supabase in real time
+
 [![Watch ZahniHero Part 3](https://img.youtube.com/vi/d6UzlYEBhSQ/0.jpg)](https://www.youtube.com/watch?v=d6UzlYEBhSQ)
 
 
