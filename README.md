@@ -105,11 +105,31 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 
 ## Technology
 
-- ESP32-C6  
-- I2S microphone / piezo vibration sensor  
-- Arduino OTA  
-- Supabase (PostgreSQL, REST API)  
-- Website: HTML + JS hosted on GitHub Pages
+### Physisch
+- ESP32 Dev Modul  
+- I2S soundsensor
+- LED 
+- SW-420 vibrationsensor (für Tests) 
+- ADXL335 vibrationsensor (für Tests)  
+- Piezoelektrischer vibrationsensor  (für Tests)  
+
+### Digital
+- Arduino (C/C++)  
+- Supabase (Datenbank & REST API)  
+- HTML, CSS, JavaScript  
+- Webserver 
+- OTA (Over-the-Air Updates für Firmware)  
+
+## Datenstruktur
+
+-Ein Flussdiagramm wurde erstellt, um den Informationsfluss zu visualisieren.
+![ZahniHero Prototype](images/I2S_Steckplatine.png)
+
+## Finales Steckbrett
+
+![ZahniHero Prototype](images/I2S_Steckplatine.png)
+
+
 
 ---
 
