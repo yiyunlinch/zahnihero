@@ -10,9 +10,6 @@ ZahniHero – for better brushing routines, powered by play and supported by dat
 
 ![ZahniHero Prototype](images/final.jpg)
 
-Final Product visual reference
-
-![ZahniHero Prototype](images/reference.png)
 
 
 
@@ -97,7 +94,7 @@ In discussion with Jan, he suggested that I test the INMP441 Microphone sensor �
 ## Challenges and Lessons Learned
 
 ### Implementation of I2S with ESP32-C6
-- I had difficulties setting up the I2S with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the INMP441 sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
+I had difficulties setting up the I2S with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the INMP441 sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
   
 During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
 This includes configuration, wiring, and key challenges I encountered.
@@ -106,7 +103,7 @@ This includes configuration, wiring, and key challenges I encountered.
 
 
 ### Brushing logic
-- Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
+Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S Microphone sensor value exceeding 100 or dropping below -100.
@@ -168,6 +165,10 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 
 ### UX from the Toothbrush
 
+Final Product visual reference
+
+![ZahniHero Prototype](images/reference.png)
+
 The UX design was informed by insights from user interviews.  
 🔗 [Figma link to interview results](https://www.figma.com/design/wadJ1YZ3SQiw23xoVoVQCV/AppKonzeption?node-id=0-1&t=GbyrRmA4R8Lrk3HM-1)
 
@@ -183,9 +184,8 @@ In the future, another model could focus on music, stories, and riddles. Additio
 
 ### UX from the Web Interface
 
-![ZahniHero Prototype](images/final.jpg)
-
 This website is designed for parents and dentists to view clear, simple visual summaries and analyses. It is not intended for interaction with children.
+
 ![ZahniHero Prototype](images/login.png)
 
 ![ZahniHero Prototype](images/web.png)
