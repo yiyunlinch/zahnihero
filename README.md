@@ -64,20 +64,29 @@ However, due to the lack of 3D printing tools and a broken LED pin during assemb
 
 ## Approach
 
+
 I combined hardware (ESP32-C6, INMP441 microphone, and LEDs) with a Supabase-powered database and a simple web interface.
 The development focused on delivering clear feedback, minimizing distractions, and providing parental insight.
 
 
+
+
+### Vibration sensor
+
 ![ZahniHero Prototype](images/all.jpg)
+
 
 Originally, I planned to use the SW-420 vibration sensor (first row, left). However, during testing, the sensor couldn’t reliably distinguish between tooth brushing and non-brushing activity — the output values ranged unpredictably from 100 to 1000.
 
+
 So I tried two other vibration sensors: the ADXL335 (first row, middle) and a piezoelectric sensor (first row, right), as well as the INMP441 microphone (second row). Among the two vibration sensors, the ADXL335 gave relatively satisfactory results. Although the values were still a bit unstable, the difference between brushing and not brushing was noticeably larger. Tested picture below.
+
 
 ![ZahniHero Prototype](images/ADXL335.jpg)
 
+### Microphone sensor
 
-However, in discussion with Jan, he preferred that I test the I2S sound sensor — which I eventually chose to use in the final version.
+In discussion with Jan, he suggested that I test the INMP441 Microphone sensor — which I eventually chose to use in the final version.
 
 ![ZahniHero Prototype](images/final.jpg)
 
@@ -87,8 +96,8 @@ However, in discussion with Jan, he preferred that I test the I2S sound sensor �
 
 ## Challenges and Lessons Learned
 
-### Umsetzung von I2S mit ESP32-C6
-- I had difficulties setting up the I2S sound sensor with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
+### Implementation of I2S with ESP32-C6
+- I had difficulties setting up the I2S with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the INMP441 sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
   
 During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
 This includes configuration, wiring, and key challenges I encountered.
@@ -100,15 +109,15 @@ This includes configuration, wiring, and key challenges I encountered.
 - Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S sound sensor value exceeding 100 or dropping below -100.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S Microphone sensor value exceeding 100 or dropping below -100.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound is sampled every 100 milliseconds.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound is sampled every 100 milliseconds.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This one-second brushing status is saved into a 5-second rolling window.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This one-second brushing status is saved into a 5-second rolling window.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
 
 
 ### Debugging
@@ -145,7 +154,7 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 [View the interactive Figma prototype](https://www.figma.com/design/RrmlAfJ9aAwzEVlInX0cJs/Figma-basics?node-id=1669-162202&p=f&t=eWxupG4LIomI9mJN-0)
 
 
--Ein Flussdiagramm wurde erstellt, um den Informationsfluss zu visualisieren.
+- A flowchart was created to visualize the flow of information.
 ![ZahniHero Prototype](images/I2S_Steckplatine.png)
 
 ### Final breadboard
