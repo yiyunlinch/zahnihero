@@ -201,6 +201,7 @@ Parents appreciate clear and simple visual summaries.
 
 ## Task Distribution
 The entire project was independently developed and implemented by Yiyun Lin.
+This project was built using AI tools such as ChatGPT and GitHub Copilot to facilitate documentation, programming, and debugging.
 
 
 
