@@ -136,10 +136,19 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 
 ## Datenstruktur
 
+### Screen Flow
+
+A flow diagram was created to visualize the information flow throughout the ZahniHero system.
+
+![ZahniHero Prototype](images/figma.png)
+
+[View the interactive Figma prototype](https://www.figma.com/design/RrmlAfJ9aAwzEVlInX0cJs/Figma-basics?node-id=1669-162202&p=f&t=eWxupG4LIomI9mJN-0)
+
+
 -Ein Flussdiagramm wurde erstellt, um den Informationsfluss zu visualisieren.
 ![ZahniHero Prototype](images/I2S_Steckplatine.png)
 
-## Finales Steckbrett
+### Final breadboard
 
 ![ZahniHero Prototype](images/I2S_Steckplatine.png)
 
