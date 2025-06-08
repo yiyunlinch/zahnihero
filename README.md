@@ -108,7 +108,7 @@ This includes configuration, wiring, and key challenges I encountered.
 Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S Microphone sensor value exceeding 100 or dropping below -100.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S Microphone sensor ADC output values exceeding 100 or dropping below -100.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound is sampled every 100 milliseconds.
 
@@ -123,7 +123,6 @@ So, I defined the brushing logic as follows:
 
 During the process of uploading toothbrush data to Supabase and displaying it on the website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
-![ZahniHero Prototype](images/supabase.png)
 
 ---
 
@@ -162,6 +161,28 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 ### Database design
 
 ![ZahniHero Prototype](images/supabase1.png)
+
+The ZahniHero toothbrush detects brushing activity using sound sensors. It records the start time when brushing begins and the duration once brushing ends.
+
+- Upload Frequency
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once per brushing session
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data is uploaded after brushing stops
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This avoids excessive writes and saves bandwidth and power
+- Data Format (JSON)
+The device sends the following JSON payload to Supabase via a REST API:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "timestamp": "2025-06-08T15:58:00Z",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "duration": 125,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "device": "Maxi"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+
+![ZahniHero Prototype](images/supabase2.png)
+- Summary
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZahniHero sends one record per brushing session
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The record includes timestamp, duration, and device ID
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data is uploaded in JSON format via WiFi to Supabase
+
+![ZahniHero Prototype](images/supabase.png)
 
 
 
