@@ -156,9 +156,6 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 [View the interactive Figma prototype](https://www.figma.com/design/RrmlAfJ9aAwzEVlInX0cJs/Figma-basics?node-id=1669-162202&p=f&t=eWxupG4LIomI9mJN-0)
 
 
-- A flowchart was created to visualize the flow of information.
-![ZahniHero Prototype](images/I2S_Steckplatine.png)
-
 ### Final breadboard
 
 ![ZahniHero Prototype](images/I2S_Steckplatine.png)
