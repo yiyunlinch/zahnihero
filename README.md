@@ -68,8 +68,6 @@ I combined hardware (ESP32-C6, INMP441 microphone, and LEDs) with a Supabase-pow
 The development focused on delivering clear feedback, minimizing distractions, and providing parental insight.
 
 
-
-
 ### Vibration sensor
 
 ![ZahniHero Prototype](images/all.jpg)
@@ -164,23 +162,20 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 
 The ZahniHero toothbrush detects brushing activity using sound sensors. It records the start time when brushing begins and the duration once brushing ends.
 
-- Upload Frequency
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Once per brushing session
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data is uploaded after brushing stops
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This avoids excessive writes and saves bandwidth and power
-- Data Format (JSON)
+#### Upload Frequency
+- Once per brushing session
+- Data is uploaded after brushing stops
+- This avoids excessive writes and saves bandwidth and power
+  
+#### Data Format (JSON)
 The device sends the following JSON payload to Supabase via a REST API:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "timestamp": "2025-06-08T15:58:00Z",
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "duration": 125,
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   "device": "Maxi"
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 
 ![ZahniHero Prototype](images/supabase2.png)
-- Summary
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZahniHero sends one record per brushing session
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The record includes timestamp, duration, and device ID
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data is uploaded in JSON format via WiFi to Supabase
+
+#### Summary
+- ZahniHero sends one record per brushing session
+- The record includes timestamp, duration, and device ID
+- Data is uploaded in JSON format via WiFi to Supabase
 
 ![ZahniHero Prototype](images/supabase.png)
 
