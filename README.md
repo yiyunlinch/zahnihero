@@ -9,6 +9,8 @@ In addition to the physical device, the companion website https://zahnihero.yiyu
 ZahniHero – for better brushing routines, powered by play and supported by data — without screens. Unlike other products on the market that rely on an additional tablet to entertain children during brushing, ZahniHero keeps the experience simple, focused, and engaging.
 
 ![ZahniHero Prototype](images/final.jpg)
+![ZahniHero Prototype](images/final2.jpg)
+
 
 
 
