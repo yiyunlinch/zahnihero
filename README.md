@@ -75,7 +75,7 @@ The development focused on delivering clear feedback, minimizing distractions, a
 ![ZahniHero Prototype](images/all.jpg)
 
 
-Originally, I planned to use the SW-420 vibration sensor (first row, left). However, during testing, the sensor couldn’t reliably distinguish between tooth brushing and non-brushing activity — the output values ranged unpredictably from 100 to 1000.
+Originally, I planned to use the SW-420 vibration sensor (first row, left). However, during testing, the sensor couldn’t reliably distinguish between tooth brushing and non-brushing activity — The ADC output values ranged unpredictably from 100 to 1000.
 
 
 So I tried two other vibration sensors: the ADXL335 (first row, middle) and a piezoelectric sensor (first row, right), as well as the INMP441 microphone (second row). Among the two vibration sensors, the ADXL335 gave relatively satisfactory results. Although the values were still a bit unstable, the difference between brushing and not brushing was noticeably larger. Tested picture below.
@@ -158,6 +158,10 @@ A flow diagram was created to visualize the information flow throughout the Zahn
 ### Final breadboard
 
 ![ZahniHero Prototype](images/I2S_Steckplatine.png)
+
+### Database design
+
+![ZahniHero Prototype](images/supabase1.png)
 
 
 
