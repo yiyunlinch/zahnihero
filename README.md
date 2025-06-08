@@ -14,7 +14,7 @@ Final Product visual reference
 
 ![ZahniHero Prototype](images/reference.png)
 
---
+
 
 ## Table of Contents
 
