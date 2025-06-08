@@ -124,6 +124,8 @@ So, I defined the brushing logic as follows:
 
 During the process of uploading toothbrush data to Supabase and displaying it on the website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
+![ZahniHero Prototype](images/supabase.png)
+
 ---
 
 ## Technology
@@ -133,8 +135,8 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 - INMP441 microphone
 - LED 
 - SW-420 vibrationsensor (für Tests) 
-- ADXL335 vibrationsensor (für Tests)  
-- Piezoelektrischer vibrationsensor  (für Tests)  
+- Piezoelektrisches Vibrationsschalter-Modul 5.0V DC (für Tests)
+- Arduino - Piezo Vibrationssensor (für Tests)  
 
 ### Digital
 - Arduino (C/C++)  
@@ -143,7 +145,7 @@ During the process of uploading toothbrush data to Supabase and displaying it on
 - Webserver 
 - OTA (Over-the-Air Updates für Firmware)  
 
-## Datenstruktur
+## Data structure
 
 ### Screen Flow
 
@@ -176,7 +178,7 @@ The UX design was informed by insights from user interviews.
 ![ZahniHero Prototype](images/interview.jpg)
 
 As a parent myself and based on user interviews, I understand that children respond better to lights and color changes.  
-LED feedback is more engaging and motivating for them than a voice simply saying "one minute," "two minutes," or "finished."
+LED feedback is more engaging and motivating for them than a voice simply  announcing "one minute," "two minutes," or "finished."
 In the future, another model could focus on music, stories, and riddles. Additionally, more detailed data—such as brushing areas—could be collected for improved feedback.
 
 
@@ -186,7 +188,8 @@ In the future, another model could focus on music, stories, and riddles. Additio
 
 ![ZahniHero Prototype](images/final.jpg)
 
-Parents appreciate clear and simple visual summaries.
+This website is designed for parents and dentists to view clear, simple visual summaries and analyses. It is not intended for interaction with children.
+
 
 
 ---
