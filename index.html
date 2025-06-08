@@ -1,320 +1,41 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <title>ZahniHero Brushing Records</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #e3e9f0;
-    }
+<meta charset="utf-8"/>
+<title>ZahniHero Brushing Records</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    h1 {
-      color: #3c3c3c;
-      text-align: center;
-      font-size: 2.5rem;
-      background: linear-gradient(to right, red, orange, yellow, green);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .filters {
-      margin: 1rem 0;
-      text-align: center;
-    }
-
-    .filters button {
-      margin-right: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      background: transparent;
-      border: 1px solid #999;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .status {
-      margin: 0.5rem 0;
-      font-style: italic;
-      text-align: right;
-      font-family: inherit;
-    }
-
-    .device-status {
-      position: absolute;
-      top: 1rem;
-      right: 2rem;
-      font-size: 0.9rem;
-      font-family: inherit;
-    }
-
-    canvas {
-      background: rgba(255, 255, 255, 0.7);
-      border: none;
-      padding: 1rem;
-      display: block;
-      margin: 1rem auto;
-      border-radius: 10px;
-      border-left: 2px solid #999;
-      border-bottom: 2px solid #999;
-    }
-
-    .summary {
-      text-align: right;
-      font-weight: bold;
-      margin-top: -2rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-
-    .trends {
-      background: rgba(255, 255, 255, 0.7);
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      margin-top: 2rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .trends h3 {
-      background: linear-gradient(to right, green, cyan, blue, purple);
-      -webkit-background-clip: text;
-      color: transparent;
-      font-size: 1.3rem;
-    }
-
-    .trends p {
-      font-family: inherit;
-    }
-
-    footer {
-      font-size: 0.9rem;
-      color: #555;
-      text-align: left;
-      max-width: 800px;
-      margin: 2rem auto 0 auto;
-      background: none;
-      box-shadow: none;
-      padding: 0;
-      font-family: inherit;
-    }
-
-    footer strong {
-      background: linear-gradient(to right, yellow, orange);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    #loginOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    #loginBox {
-      background: linear-gradient(to right, orange, yellow, green);
-      padding: 2rem;
-      border-radius: 12px;
-      width: 300px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      font-family: sans-serif;
-    }
-
-    #loginBox h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    #loginBox input {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
-    #loginBox button {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 1rem;
-      border: none;
-      border-radius: 5px;
-      background: #444;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
+<link href="style.css" rel="stylesheet"/></head>
 <body>
-  <div id="loginOverlay">
-    <div id="loginBox">
-      <h2>Login</h2>
-      <input type="text" id="username" placeholder="Username" value="Maxi">
-      <input type="password" id="password" placeholder="Password" value="12345">
-      <button onclick="login()">Login</button>
-    </div>
-  </div>
+<div id="loginOverlay">
+<div id="loginBox">
+<h2>Login</h2>
+<input id="username" placeholder="Username" type="text" value="Maxi"/>
+<input id="password" placeholder="Password" type="password" value="12345"/>
+<button onclick="login()">Login</button>
+</div>
+</div>
+<h1>ZahniHero Brushing Records</h1>
+<div class="device-status" id="deviceStatus">🪥 Offline</div>
+<div class="filters">
+<button onclick="filterData('today')">Today</button>
+<button onclick="filterData('week')">Last 7 Days</button>
+<button onclick="filterData('month')">Last Month</button>
+<button onclick="filterData('3months')">Last 3 Months</button>
+<button onclick="filterData('all')">All</button>
+</div>
+<div class="summary" id="summary"></div>
+<div class="status" id="status">Loading...</div>
+<canvas height="400" id="brushChart" width="800"></canvas>
+<div class="trends">
+<h3>Brushing Trends and Medical Suggestions</h3>
+<p id="trendText">The brushing time is below average. We recommend brushing for at least 3 minutes daily.</p>
+</div>
+<footer>
+<p><strong>About ZahniHero</strong><br/>ZahniHero is an innovative, smart, and interactive electric toothbrush for kids. Using colorful lights, music, and storytelling, ZahniHero makes brushing fun without screens. It helps children build long-term healthy brushing habits through extended and engaging routines.</p>
+</footer>
 
-  <h1>ZahniHero Brushing Records</h1>
-
-  <div class="device-status" id="deviceStatus">🪥 Offline</div>
-
-  <div class="filters">
-    <button onclick="filterData('today')">Today</button>
-    <button onclick="filterData('week')">Last 7 Days</button>
-    <button onclick="filterData('month')">Last Month</button>
-    <button onclick="filterData('3months')">Last 3 Months</button>
-    <button onclick="filterData('all')">All</button>
-  </div>
-
-  <div class="summary" id="summary"></div>
-
-  <div class="status" id="status">Loading...</div>
-  <canvas id="brushChart" width="800" height="400"></canvas>
-
-  <div class="trends">
-    <h3>Brushing Trends and Medical Suggestions</h3>
-    <p id="trendText">The brushing time is below average. We recommend brushing for at least 3 minutes daily.</p>
-  </div>
-
-  <footer>
-    <p><strong>About ZahniHero</strong><br>ZahniHero is an innovative, smart, and interactive electric toothbrush for kids. Using colorful lights, music, and storytelling, ZahniHero makes brushing fun without screens. It helps children build long-term healthy brushing habits through extended and engaging routines.</p>
-  </footer>
-
-  <script>
-    const supabaseUrl = "https://timhflcxsmjlyqjnymrm.supabase.co";
-    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRpbWhmbGN4c21qbHlxam55bXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MjU2MTksImV4cCI6MjA2MDQwMTYxOX0.cbZUGdOZrQ14mVf5685U6gFCe7AnX-nGHU4Joxa48Z8";
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-    let allData = [];
-
-    const ctx = document.getElementById("brushChart").getContext("2d");
-    const chart = new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: [],
-        datasets: [{
-          label: "Duration (sec)",
-          data: [],
-          backgroundColor: "rgba(54, 162, 235, 0.6)"
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Date & Time"
-            }
-          },
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Duration (sec)"
-            }
-          }
-        }
-      }
-    });
-
-    function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      if (user === 'Maxi' && pass === '12345') {
-        document.getElementById('loginOverlay').style.display = 'none';
-        fetchData();
-        document.getElementById('deviceStatus').textContent = '🟢 Connected as Maxi';
-      } else {
-        alert('Incorrect credentials. Try again.');
-      }
-    }
-
-    async function fetchData() {
-      const status = document.getElementById("status");
-      status.textContent = "Loading data...";
-
-      const { data, error } = await supabase
-        .from("brush_records")
-        .select("*")
-        .order("timestamp", { ascending: false });
-
-      if (error) {
-        console.error("Error fetching data:", error.message);
-        status.textContent = "❌ Failed to load data.";
-        return;
-      }
-
-      if (!data || data.length === 0) {
-        status.textContent = "No data available.";
-        return;
-      }
-
-      allData = data.map(row => ({
-        timestamp: row.timestamp,
-        duration: row.duration,
-        device: row.device
-      }));
-
-      updateChart(allData);
-    }
-
-    function filterData(range) {
-      const now = new Date();
-      let startDate = new Date(0);
-
-      switch (range) {
-        case "today":
-          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-          break;
-        case "week":
-          startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-          break;
-        case "month":
-          startDate = new Date();
-          startDate.setMonth(startDate.getMonth() - 1);
-          break;
-        case "3months":
-          startDate = new Date();
-          startDate.setMonth(startDate.getMonth() - 3);
-          break;
-      }
-
-      const filtered = allData.filter(item => new Date(item.timestamp) >= startDate);
-      updateChart(filtered);
-      document.getElementById("status").textContent = `Showing ${filtered.length} records.`;
-    }
-
-    function updateChart(data) {
-      chart.data.labels = data.map(entry =>
-        new Date(entry.timestamp).toLocaleString("de-CH", {
-          day: "2-digit",
-          month: "2-digit",
-          hour: "2-digit",
-          minute: "2-digit"
-        })
-      );
-      chart.data.datasets[0].data = data.map(entry => entry.duration);
-      chart.update();
-    }
-  </script>
-</body>
-
+<script src="main.js"></script></body>
 </html>
