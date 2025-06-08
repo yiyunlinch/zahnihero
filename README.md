@@ -186,6 +186,9 @@ In the future, another model could focus on music, stories, and riddles. Additio
 ![ZahniHero Prototype](images/final.jpg)
 
 This website is designed for parents and dentists to view clear, simple visual summaries and analyses. It is not intended for interaction with children.
+![ZahniHero Prototype](images/login.png)
+
+![ZahniHero Prototype](images/web.png)
 
 
 
