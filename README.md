@@ -172,13 +172,30 @@ The device sends the following JSON payload to Supabase via a REST API:
 
 ![ZahniHero Prototype](images/supabase2.png)
 
-#### Summary
 - ZahniHero sends one record per brushing session
 - The record includes timestamp, duration, and device ID
 - Data is uploaded in JSON format via WiFi to Supabase
 
-![ZahniHero Prototype](images/supabase.png)
 
+### Login and Supabase Integration
+
+- Integrated Supabase as the backend for authentication and data storage
+- Implemented email and password login using the Supabase JavaScript client
+- Connected the front-end login form (index.html) directly to Supabase's auth.signInWithPassword API
+- After login, user-specific brushing data is fetched securely from the brush_records table
+
+![ZahniHero Prototype](images/supabase.png)
+Since this is a demo version, user registration is disabled. Instead, login uses predefined test accounts:
+- The user selects a name from a dropdown menu
+- The password is pre-filled as test1234
+- Upon login, only the brushing records linked to the corresponding email address (Name) are shown.
+
+### Security Note
+For demonstration purposes:
+- Email confirmation is disabled in Supabase settings
+- Row Level Security (RLS) is enabled on the brush_records table
+- A policy is in place to ensure each user can only read their own data (device = auth.email())
+- This setup makes the demo realistic while remaining easy to test without email validation steps.
 
 
 ---
@@ -211,6 +228,10 @@ This website is designed for parents and dentists to view clear, simple visual s
 ![ZahniHero Prototype](images/login.png)
 
 ![ZahniHero Prototype](images/web.png)
+
+After log in, brushing data is loaded and visualized right away,users can instantly see their brushing history presented in a clean bar chart. A simple time-range filter (Today, Last 7 Days, etc.) makes exploration intuitive. Additionally, the interface provides a brief medical suggestion beneath the chart to reinforce healthy brushing habits.
+
+
 
 
 
