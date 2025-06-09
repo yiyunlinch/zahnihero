@@ -91,39 +91,6 @@ In discussion with Jan, he suggested that I test the INMP441 Microphone sensor �
 
 ---
 
-## Challenges and Lessons Learned
-
-### Implementation of I2S with ESP32-C6
-I had difficulties setting up the I2S with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the INMP441 sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
-  
-During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
-This includes configuration, wiring, and key challenges I encountered.
-
-📎 [GitHub Repository – ESP32-C6 with INMP441](https://github.com/yiyunlinch/ESP32-INMP441)
-
-
-### Brushing logic
-Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
-So, I defined the brushing logic as follows:
-
-- Brushing is detected based on the I2S Microphone sensor ADC output values exceeding 100 or dropping below -100.
-
-- Sound is sampled every 100 milliseconds.
-
-- Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
-
-- This one-second brushing status is saved into a 5-second rolling window.
-
-- If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
-
-
-### Debugging
-
-During the process of uploading toothbrush data to Supabase and displaying it on the website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
-
-
----
-
 ## Technology
 
 ### Physisch
@@ -231,6 +198,39 @@ This website is designed for parents and dentists to view clear, simple visual s
 
 After log in, brushing data is loaded and visualized right away,users can instantly see their brushing history presented in a clean bar chart. A simple time-range filter (Today, Last 7 Days, etc.) makes exploration intuitive. Additionally, the interface provides a brief medical suggestion beneath the chart to reinforce healthy brushing habits.
 
+
+
+---
+
+## Challenges and Lessons Learned
+
+### Implementation of I2S with ESP32-C6
+I had difficulties setting up the I2S with the ESP32-C6. ChatGPT initially provided incorrect code and even concluded that the INMP441 sensor and the chip were incompatible. With the help of the datasheet and a YouTube video, I was finally able to configure everything correctly.
+  
+During the development process, I documented the setup and implementation of I2S (with the INMP441 microphone) on the ESP32-C6.  
+This includes configuration, wiring, and key challenges I encountered.
+
+📎 [GitHub Repository – ESP32-C6 with INMP441](https://github.com/yiyunlinch/ESP32-INMP441)
+
+
+### Brushing logic
+Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
+So, I defined the brushing logic as follows:
+
+- Brushing is detected based on the I2S Microphone sensor ADC output values exceeding 100 or dropping below -100.
+
+- Sound is sampled every 100 milliseconds.
+
+- Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+
+- This one-second brushing status is saved into a 5-second rolling window.
+
+- If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+
+
+### Debugging
+
+During the process of uploading toothbrush data to Supabase and displaying it on the website, I encountered issues where the data wouldn’t appear. ChatGPT’s debugging suggestions were not always correct — I realized it's important to critically assess AI suggestions and rely on my own judgment and testing as well.
 
 
 
