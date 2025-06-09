@@ -106,15 +106,15 @@ This includes configuration, wiring, and key challenges I encountered.
 Designing a brushing detection algorithm based on vibration or sound patterns was challenging for two reasons. First, the vibration from brushing tends to fade and rise again every 10 seconds or so. Second, all the sensors produce fluctuating values, but I needed to detect continuous brushing, not short interruptions. A brief drop in sensor values shouldn't be interpreted as the user having stopped brushing.
 So, I defined the brushing logic as follows:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brushing is detected based on the I2S Microphone sensor ADC output values exceeding 100 or dropping below -100.
+- Brushing is detected based on the I2S Microphone sensor ADC output values exceeding 100 or dropping below -100.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sound is sampled every 100 milliseconds.
+- Sound is sampled every 100 milliseconds.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
+- Every second, the system checks if there were at least 3 active readings (i.e., brushing activity).
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This one-second brushing status is saved into a 5-second rolling window.
+- This one-second brushing status is saved into a 5-second rolling window.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
+- If at least 3 out of the last 5 seconds were brushing-active, the system considers the user to be currently brushing.
 
 
 ### Debugging
