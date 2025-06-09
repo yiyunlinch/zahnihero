@@ -1,167 +1,65 @@
 
-    /* Page layout styling */
-    body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #e3e9f0;
-    }
-
-    /* Rainbow gradient title */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: sans-serif; padding: 2rem; background: #e3e9f0; }
     h1 {
-      color: #3c3c3c;
-      text-align: center;
-      font-size: 2.5rem;
+      color: #3c3c3c; text-align: center; font-size: 2.5rem;
       background: linear-gradient(to right, red, orange, yellow, green);
-      -webkit-background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; color: transparent;
     }
-
-    /* Filter button container */
-    .filters {
-      margin: 1rem 0;
-      text-align: center;
-    }
-
-    /* Individual filter button styling */
+    .filters { margin: 1rem 0; text-align: center; }
     .filters button {
-      margin-right: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      background: transparent;
-      border: 1px solid #999;
-      cursor: pointer;
+      margin-right: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem;
+      border-radius: 10px; background: transparent; border: 1px solid #999;
+      cursor: pointer; font-family: inherit;
+    }
+    .status, .summary, .device-status {
       font-family: inherit;
     }
-
-    /* Status bar (bottom right) */
-    .status {
-      margin: 0.5rem 0;
-      font-style: italic;
-      text-align: right;
-      font-family: inherit;
-    }
-
-    /* Device connection status */
+    .status { margin: 0.5rem 0; font-style: italic; text-align: right; }
     .device-status {
-      position: absolute;
-      top: 1rem;
-      right: 2rem;
-      font-size: 0.9rem;
-      font-family: inherit;
+      position: absolute; top: 1rem; right: 2rem; font-size: 0.9rem;
     }
-
-    /* Chart canvas styling */
     canvas {
-      background: rgba(255, 255, 255, 0.7);
-      border: none;
-      padding: 1rem;
-      display: block;
-      margin: 1rem auto;
-      border-radius: 10px;
-      border-left: 2px solid #999;
-      border-bottom: 2px solid #999;
+      background: rgba(255,255,255,0.7); padding: 1rem;
+      margin: 1rem auto; display: block; border-radius: 10px;
+      border-left: 2px solid #999; border-bottom: 2px solid #999;
     }
-
-    /* Summary text on the right */
     .summary {
-      text-align: right;
-      font-weight: bold;
-      margin-top: -2rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      font-family: inherit;
+      text-align: right; font-weight: bold;
+      margin-top: -2rem; margin-bottom: 1rem; font-size: 1rem;
     }
-
-    /* Suggestions section container */
     .trends {
-      background: rgba(255, 255, 255, 0.7);
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-      margin-top: 2rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1); margin-top: 2rem;
+      max-width: 800px; margin-left: auto; margin-right: auto;
     }
-
     .trends h3 {
       background: linear-gradient(to right, green, cyan, blue, purple);
-      -webkit-background-clip: text;
-      color: transparent;
-      font-size: 1.3rem;
+      -webkit-background-clip: text; color: transparent; font-size: 1.3rem;
     }
-
-    .trends p {
-      font-family: inherit;
-    }
-
-    /* Footer with About ZahniHero */
     footer {
-      font-size: 0.9rem;
-      color: #555;
-      text-align: left;
-      max-width: 800px;
-      margin: 2rem auto 0 auto;
-      background: none;
-      box-shadow: none;
-      padding: 0;
-      font-family: inherit;
+      font-size: 0.9rem; color: #555; text-align: left; max-width: 800px;
+      margin: 2rem auto 0 auto; background: none; box-shadow: none;
     }
-
     footer strong {
       background: linear-gradient(to right, yellow, orange);
-      -webkit-background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; color: transparent;
     }
-
-    /* Login overlay container styling */
     #loginOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.3); display: flex; justify-content: center;
+      align-items: center; z-index: 9999;
     }
-
-    /* Login box styling */
     #loginBox {
       background: linear-gradient(to right, orange, yellow, green);
-      padding: 2rem;
-      border-radius: 12px;
-      width: 300px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      font-family: sans-serif;
+      padding: 2rem; border-radius: 12px; width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
-
-    #loginBox h2 {
-      text-align: center;
-      margin-bottom: 1rem;
+    #loginBox select, #loginBox input, #loginBox button {
+      width: 100%; padding: 0.5rem; margin-top: 0.5rem;
+      border: none; border-radius: 5px; font-size: 1rem;
     }
-
-    #loginBox input {
-      width: 100%;
-      padding: 0.5rem;
-      margin: 0.5rem 0;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-
     #loginBox button {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 1rem;
-      border: none;
-      border-radius: 5px;
-      background: #444;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
+      background: #444; color: white; cursor: pointer;
     }
   

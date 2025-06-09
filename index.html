@@ -1,24 +1,38 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <title>ZahniHero Brushing Records</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+function logout() {
+  supabase.auth.signOut().then(() => location.reload());
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+function logout() {
+  supabase.auth.signOut().then(() => location.reload());
+}
+</script>
 
 <link href="style.css" rel="stylesheet"/></head>
 <body>
 <div id="loginOverlay">
 <div id="loginBox">
 <h2>Login</h2>
-<input id="username" placeholder="Username" type="text" value="Maxi"/>
-<input id="password" placeholder="Password" type="password" value="12345"/>
+<!-- LOGIN: Demo users only. Select a name and use password "test1234". -->
+<select id="username">
+<option value="maxi">Maxi</option>
+<option value="dominik">Dominik</option>
+</select>
+<input id="password" placeholder="Password" type="password" value="test1234"/>
 <button onclick="login()">Login</button>
 </div>
 </div>
 <h1>ZahniHero Brushing Records</h1>
-<div class="device-status" id="deviceStatus">🪥 Offline</div>
+<div class="device-status" id="deviceStatus" style="display:none;"></div>
+<!-- FILTER BUTTONS: Let user filter data by time range (e.g. Today, 7 Days, All) -->
 <div class="filters">
 <button onclick="filterData('today')">Today</button>
 <button onclick="filterData('week')">Last 7 Days</button>
@@ -27,15 +41,17 @@
 <button onclick="filterData('all')">All</button>
 </div>
 <div class="summary" id="summary"></div>
-<div class="status" id="status">Loading...</div>
-<canvas height="400" id="brushChart" width="800"></canvas>
+<div class="status" id="status" style="display:none;"></div>
+<!-- CHART: Displays brushing duration (left border + bottom axis only) -->
+<canvas height="400" id="brushChart" style="border-left: 2px solid #999; border-bottom: 2px solid #999; border-top: none; border-right: none; background: rgba(255,255,255,0.7); padding: 1rem; display: block; margin: 37.8px auto 1rem auto; border-radius: 10px;" width="800"></canvas>
 <div class="trends">
 <h3>Brushing Trends and Medical Suggestions</h3>
-<p id="trendText">The brushing time is below average. We recommend brushing for at least 3 minutes daily.</p>
+<!-- MEDICAL NOTE: Only shown after login. Recommends brushing 3 minutes daily. -->
+<p id="trendText" style="display:none;">The brushing time is below average. We recommend brushing for at least 3 minutes daily.</p>
 </div>
 <footer>
 <p><strong>About ZahniHero</strong><br/>ZahniHero is an innovative, smart, and interactive electric toothbrush for kids. Using colorful lights, music, and storytelling, ZahniHero makes brushing fun without screens. It helps children build long-term healthy brushing habits through extended and engaging routines.</p>
 </footer>
 
-<script src="main.js"></script></body>
+<script src="script.js"></script></body>
 </html>
