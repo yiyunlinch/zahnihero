@@ -190,7 +190,7 @@ Since this is a demo version, user registration is disabled. Instead, login uses
 - The password is pre-filled as test1234
 - Upon login, only the brushing records linked to the corresponding email address (Name) are shown.
 
-### Security Note
+#### Security Note
 For demonstration purposes:
 - Email confirmation is disabled in Supabase settings
 - Row Level Security (RLS) is enabled on the brush_records table
