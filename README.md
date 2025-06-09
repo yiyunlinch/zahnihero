@@ -97,9 +97,9 @@ In discussion with Jan, he suggested that I test the INMP441 Microphone sensor �
 - ESP32 Dev Modul  
 - INMP441 microphone
 - LED 
-- SW-420 vibrationsensor (für Tests) 
-- Piezoelektrisches Vibrationsschalter-Modul 5.0V DC (für Tests)
-- Arduino - Piezo Vibrationssensor (für Tests)  
+- SW-420 vibrationsensor (for Tests) 
+- Piezoelektrisches Vibrationsschalter-Modul 5.0V DC (for Tests)
+- Arduino - Piezo Vibrationssensor (for Tests)  
 
 ### Digital
 - Arduino (C/C++)  
