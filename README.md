@@ -20,9 +20,9 @@ ZahniHero – for better brushing routines, powered by play and supported by dat
 - [Idea](#idea)
 - [Short Project Video](#short-project-video)  
 - [Approach](#approach)  
-- [Challenges and Lessons Learned](#challenges-and-lessons-learned)  
 - [Technology](#technology)  
-- [UX](#ux)  
+- [UX](#ux)
+- [Challenges and Lessons Learned](#challenges-and-lessons-learned)  
 - [Known Bugs](#known-bugs)  
 - [Task Distribution](#task-distribution)  
 
