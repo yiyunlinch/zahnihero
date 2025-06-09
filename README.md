@@ -1,6 +1,6 @@
 
 
-## Intro
+## Introducation
 
 ZahniHero is an interactive toothbrushing assistant designed specifically for children, to motivate them to brush their teeth for up to 3 minutes. As soon as brushing begins, ZahniHero uses sound or vibration sensors to detect activity and activates colorful LED animations: blue after 1 minute, flashing white after 2 minutes, and a rainbow light after 3 minutes. The goal is to make brushing fun and to encourage healthy, consistent habits.
 
@@ -247,7 +247,7 @@ After log in, brushing data is loaded and visualized right away,users can instan
 
 ## Task Distribution
 The entire project was independently developed and implemented by Yiyun Lin.
-This project was built using AI tools such as ChatGPT and GitHub Copilot to facilitate documentation, programming, and debugging.
+This project was built using AI tools such as ChatGPT to facilitate documentation, programming, and debugging.
 
 
 
